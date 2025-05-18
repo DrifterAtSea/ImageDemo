@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class FixedQueryParamInterceptor : Interceptor {
   override fun intercept(chain: Interceptor.Chain): Response {
     val originalRequest = chain.request()
-    val originalHttpUrl = originalRequest.url()
+    val originalHttpUrl = originalRequest.url
 
     val newHttpUrl = originalHttpUrl.newBuilder()
       .addQueryParameter("client_id", BuildConfig.UNSPLASH_ACCESS_KEY)

@@ -87,6 +87,10 @@ dependencies {
   implementation(libs.com.squareup.retrofit2.converter.gson)
   implementation(libs.com.squareup.retrofit2.converter.scalars)
 
+  implementation(libs.coil.compose)
+  implementation(libs.io.coil.compose)
+  implementation(libs.io.coil.svg)
+
   implementation(libs.hilt.android)
   ksp(libs.hilt.android.compiler)
   implementation(libs.hilt.navigation.compose)
