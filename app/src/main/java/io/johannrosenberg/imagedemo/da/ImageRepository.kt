@@ -8,19 +8,18 @@ import javax.inject.Singleton
 
 @Singleton
 class ImageRepository @Inject constructor(
-  private val apiService: ImageApiService,
-  private val imageDao: ImageDao
+  private val imagePagingSourceFactory: ImagePagingSource.Factory
 ) {
   fun getPagedImages(): Pager<Int, Image> = Pager(
-    config = PagingConfig(pageSize = 20),
-    pagingSourceFactory = { imageDao.getPagedImages() }
+    config = PagingConfig(pageSize = 10),
+    pagingSourceFactory = { imagePagingSourceFactory.create(startPage = 1) }
   )
 
-  suspend fun refreshImages() {
-    val remoteImages = apiService.photos()
-    if (remoteImages.isNotEmpty()) {
-      imageDao.insertAll(remoteImages)
-    }
-  }
+  //  suspend fun refreshImages() {
+//    val remoteImages = apiService.getPhotos()
+//    if (remoteImages.isNotEmpty()) {
+//      imageDao.insertAll(remoteImages)
+//    }
+//  }
 }
 

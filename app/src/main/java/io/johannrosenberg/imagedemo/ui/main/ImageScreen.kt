@@ -22,7 +22,7 @@ fun ImageScreen(viewModel: ImageViewModel = hiltViewModel()) {
   val lazyPagingItems = viewModel.images.collectAsLazyPagingItems()
 
   LazyColumn {
-    items(count = lazyPagingItems.itemCount, key = { index -> lazyPagingItems[index]?.caption ?: index }) { index ->
+    items(count = lazyPagingItems.itemCount, key = { index -> lazyPagingItems[index]?.id ?: index }) { index ->
       val item = lazyPagingItems[index]
       item?.let {
         ImageRow(image = it)
@@ -66,7 +66,7 @@ fun ImageRow(image: Image) {
       .padding(16.dp)
   ) {
     Column {
-      Text(text = image.caption, fontWeight = FontWeight.Bold)
+      Text(text = image.description, fontWeight = FontWeight.Bold)
     }
   }
 }

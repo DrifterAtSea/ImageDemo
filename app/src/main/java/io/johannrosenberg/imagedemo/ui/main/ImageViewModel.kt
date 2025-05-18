@@ -21,7 +21,7 @@ class ImageViewModel @Inject constructor(
   init {
     viewModelScope.launch {
       try {
-        repository.refreshImages()
+        //repository.refreshImages()
       } catch (e: Exception) {
         Log.e("ImageViewModel", "Failed to refresh images", e)
       }

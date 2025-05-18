@@ -48,7 +48,7 @@ object AppModule {
 
   @Provides
   fun provideImageApi(): ImageApiService = Retrofit.Builder()
-    .baseUrl("https://api.example.com/")
+    .baseUrl("https://api.unsplash.com/")
     .addConverterFactory(GsonConverterFactory.create())
     .client(okHttpClient)
     .build()
