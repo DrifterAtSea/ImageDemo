@@ -36,6 +36,41 @@ fun ImageScreen(viewModel: ImageViewModel = hiltViewModel()) {
         ImageCard(image = it)
       }
     }
+
+    /*lazyPagingItems.apply {
+      when {
+        loadState.refresh is LoadState.Loading -> {
+          item {
+            CircularProgressIndicator(
+              Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+            )
+          }
+        }
+
+        loadState.append is LoadState.Loading -> {
+          item {
+            CircularProgressIndicator(
+              Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+            )
+          }
+        }
+
+        loadState.refresh is LoadState.Error -> {
+          val e = lazyPagingItems.loadState.refresh as LoadState.Error
+          item {
+            Text(
+              text = "Error: ${e.error.localizedMessage}",
+              color = Color.Red,
+              modifier = Modifier.padding(16.dp)
+            )
+          }
+        }
+      }
+    }*/
   }
 }
 
