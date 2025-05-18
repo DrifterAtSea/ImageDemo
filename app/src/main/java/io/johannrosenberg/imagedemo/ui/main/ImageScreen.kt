@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import io.johannrosenberg.imagedemo.models.Image
@@ -36,41 +34,6 @@ fun ImageScreen(viewModel: ImageViewModel = hiltViewModel()) {
       val item = lazyPagingItems[index]
       item?.let {
         ImageCard(image = it)
-      }
-    }
-
-    lazyPagingItems.apply {
-      when {
-        loadState.refresh is LoadState.Loading -> {
-          item {
-            CircularProgressIndicator(
-              Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-            )
-          }
-        }
-
-        loadState.append is LoadState.Loading -> {
-          item {
-            CircularProgressIndicator(
-              Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-            )
-          }
-        }
-
-        loadState.refresh is LoadState.Error -> {
-          val e = lazyPagingItems.loadState.refresh as LoadState.Error
-          item {
-            Text(
-              text = "Error: ${e.error.localizedMessage}",
-              color = Color.Red,
-              modifier = Modifier.padding(16.dp)
-            )
-          }
-        }
       }
     }
   }
