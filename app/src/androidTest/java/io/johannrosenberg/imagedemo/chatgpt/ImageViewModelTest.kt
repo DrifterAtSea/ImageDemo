@@ -1,4 +1,4 @@
-package io.johannrosenberg.imagedemo
+package io.johannrosenberg.imagedemo.chatgpt
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import dagger.hilt.android.testing.HiltAndroidRule

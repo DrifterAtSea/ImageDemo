@@ -5,7 +5,7 @@ plugins {
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
   id("com.google.dagger.hilt.android")
-  kotlin("plugin.serialization") version "2.0.21"
+  kotlin("plugin.serialization") version "2.1.21"
   id("kotlin-kapt")
   id("com.google.devtools.ksp") version "2.1.21-2.0.1"
 }
@@ -32,8 +32,8 @@ android {
 
     buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"$unsplashAccessKey\"")
 
-    //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    testInstrumentationRunner = "io.johannrosenberg.imagedemo.HiltTestRunner"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    //testInstrumentationRunner = "io.johannrosenberg.imagedemo.HiltTestRunner"
   }
 
   buildTypes {
@@ -55,10 +55,14 @@ android {
   }
 
   testOptions {
-    unitTests {
+    unitTests {  //  Correct place for unitTest options
       isIncludeAndroidResources = true
     }
   }
+}
+
+tasks.withType<Test>().configureEach {
+  useJUnitPlatform()
 }
 
 dependencies {
@@ -118,4 +122,12 @@ dependencies {
 
   testImplementation(libs.kotlin.coroutines.test)
   testImplementation(libs.androidx.paging.common)
+
+  testImplementation(libs.junit.jupiter.api)
+  testRuntimeOnly(libs.junit.jupiter.engine)
+  testImplementation(libs.junit.jupiter.params)
+
+  testRuntimeOnly(libs.jupiter.platform.launcher)
+  testRuntimeOnly(libs.jupiter.platform.engine)
 }
+

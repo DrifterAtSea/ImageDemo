@@ -1,4 +1,4 @@
-package io.johannrosenberg.imagedemo
+package io.johannrosenberg.imagedemo.chatgpt
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry

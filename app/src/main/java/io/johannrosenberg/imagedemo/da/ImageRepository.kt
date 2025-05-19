@@ -7,10 +7,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ImageRepository @Inject constructor(
+open class ImageRepository @Inject constructor(
   private val imagePagingSourceFactory: ImagePagingSource.Factory
 ) {
-  fun getPagedImages(): Pager<Int, Image> = Pager(
+  open fun getPagedImages(): Pager<Int, Image> = Pager(
     config = PagingConfig(pageSize = 10),
     pagingSourceFactory = { imagePagingSourceFactory.create(startPage = 1) }
   )

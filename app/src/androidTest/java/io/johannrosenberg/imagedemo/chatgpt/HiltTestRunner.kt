@@ -1,4 +1,4 @@
-package io.johannrosenberg.imagedemo
+package io.johannrosenberg.imagedemo.chatgpt
 
 import android.app.Application
 import android.content.Context

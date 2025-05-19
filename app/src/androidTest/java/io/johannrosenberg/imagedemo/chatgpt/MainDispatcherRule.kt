@@ -1,4 +1,4 @@
-package io.johannrosenberg.imagedemo
+package io.johannrosenberg.imagedemo.chatgpt
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
