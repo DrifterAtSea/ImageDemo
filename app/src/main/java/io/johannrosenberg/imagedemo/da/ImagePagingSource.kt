@@ -9,7 +9,7 @@ import io.johannrosenberg.imagedemo.models.Image
 import java.util.Date
 import java.util.UUID
 
-class ImagePagingSource @AssistedInject constructor(
+open class ImagePagingSource @AssistedInject constructor(
   private val apiService: ImageApiService,
   private val imageDao: ImageDao,
   @Assisted private val startPage: Int

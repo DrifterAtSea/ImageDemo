@@ -115,4 +115,7 @@ dependencies {
   testImplementation(libs.androidx.arch.core.testing)
   testImplementation(libs.androidx.paging.testing)
   androidTestImplementation(libs.androidx.arch.core.testing)
+
+  testImplementation(libs.kotlin.coroutines.test)
+  testImplementation(libs.androidx.paging.common)
 }
