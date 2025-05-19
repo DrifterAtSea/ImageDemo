@@ -32,7 +32,8 @@ android {
 
     buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"$unsplashAccessKey\"")
 
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "io.johannrosenberg.imagedemo.HiltTestRunner"
   }
 
   buildTypes {
@@ -51,6 +52,12 @@ android {
   buildFeatures {
     compose = true
     buildConfig = true
+  }
+
+  testOptions {
+    unitTests {
+      isIncludeAndroidResources = true
+    }
   }
 }
 
@@ -93,10 +100,9 @@ dependencies {
 
   implementation(libs.hilt.android)
   ksp(libs.hilt.android.compiler)
+  kspAndroidTest(libs.hilt.android.compiler) // For instrumented tests
   implementation(libs.hilt.navigation.compose)
-
-  implementation(libs.hilt.android)
-  ksp(libs.hilt.android.compiler)
+  androidTestImplementation(libs.dagger.hilt.android.testing)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
@@ -105,4 +111,8 @@ dependencies {
   androidTestImplementation(libs.androidx.ui.test.junit4)
   debugImplementation(libs.androidx.ui.tooling)
   debugImplementation(libs.androidx.ui.test.manifest)
+
+  testImplementation(libs.androidx.arch.core.testing)
+  testImplementation(libs.androidx.paging.testing)
+  androidTestImplementation(libs.androidx.arch.core.testing)
 }
