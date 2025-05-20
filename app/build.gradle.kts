@@ -55,15 +55,17 @@ android {
   }
 
   testOptions {
-    unitTests {  //  Correct place for unitTest options
+    unitTests {
       isIncludeAndroidResources = true
+
     }
   }
 }
 
-tasks.withType<Test>().configureEach {
+tasks.withType<Test> {
   useJUnitPlatform()
 }
+
 
 dependencies {
 
@@ -97,6 +99,7 @@ dependencies {
   implementation(libs.com.squareup.retrofit2.converter.moshi)
   implementation(libs.com.squareup.retrofit2.converter.gson)
   implementation(libs.com.squareup.retrofit2.converter.scalars)
+  testImplementation(libs.okhttp.mockwebserver)
 
   implementation(libs.coil.compose)
   implementation(libs.io.coil.compose)
@@ -129,5 +132,11 @@ dependencies {
 
   testRuntimeOnly(libs.jupiter.platform.launcher)
   testRuntimeOnly(libs.jupiter.platform.engine)
+
+  testImplementation(libs.robolectric)
+
+  testImplementation(libs.androidx.test.core)
+
+  testRuntimeOnly(libs.junit.vintage.engine)
 }
 
