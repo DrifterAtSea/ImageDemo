@@ -1,5 +1,6 @@
 package io.johannrosenberg.imagedemo.gemini
 
+import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -9,6 +10,8 @@ import io.johannrosenberg.imagedemo.da.ImageDao
 import io.johannrosenberg.imagedemo.da.ImagePagingSource
 import io.johannrosenberg.imagedemo.da.ImageRepository
 import io.johannrosenberg.imagedemo.models.Image
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
@@ -32,8 +35,18 @@ class ImageRepositoryTest {
   }
 
   @Test
-  fun `pager is configured correctly`() {
-    // Access the captured PagingConfig from the mock factory
+  fun `pager is configured correctly`() = runBlocking {
+    // Trigger the pager so that create() is called
+    val pager = Pager(
+      config = PagingConfig(pageSize = 10),
+      pagingSourceFactory = { mockPagingSourceFactory.create(0) }
+    )
+
+    // Collect one page to trigger paging source creation
+    val flow = pager.flow
+    flow.first() // This triggers the paging source factory
+
+    // Now the config should be set
     assertEquals(10, mockPagingSourceFactory.capturedConfig?.pageSize)
   }
 

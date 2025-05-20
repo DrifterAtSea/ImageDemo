@@ -32,7 +32,7 @@ android {
 
     buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"$unsplashAccessKey\"")
 
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     //testInstrumentationRunner = "io.johannrosenberg.imagedemo.HiltTestRunner"
   }
 

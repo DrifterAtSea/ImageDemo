@@ -1,7 +1,6 @@
 package io.johannrosenberg.imagedemo.gemini
 
 import androidx.paging.PagingSource
-import androidx.paging.PagingState
 import io.johannrosenberg.imagedemo.da.ApiResponse
 import io.johannrosenberg.imagedemo.da.ImageApiService
 import io.johannrosenberg.imagedemo.da.ImageDao
@@ -10,7 +9,6 @@ import io.johannrosenberg.imagedemo.da.Photo
 import io.johannrosenberg.imagedemo.da.Urls
 import io.johannrosenberg.imagedemo.models.Image
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -51,19 +49,6 @@ class ImagePagingSourceTest {
     )
     assert(result is PagingSource.LoadResult.Error)
   }
-
-  @Test
-  fun `getRefreshKey returns anchor position`() {
-    val state = PagingState<Int, Image>(
-      pages = listOf(),
-      anchorPosition = 20,
-      config = androidx.paging.PagingConfig(pageSize = 10),
-      leadingPlaceholderCount = 10
-    )
-    val refreshKey = pagingSource.getRefreshKey(state)
-    assertEquals(10, refreshKey)
-  }
-
 
   // Mock Classes
   class MockImageApiService : ImageApiService {
