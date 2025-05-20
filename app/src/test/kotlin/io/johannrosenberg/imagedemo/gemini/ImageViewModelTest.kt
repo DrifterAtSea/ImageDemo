@@ -11,18 +11,27 @@ import io.johannrosenberg.imagedemo.da.ImagePagingSource
 import io.johannrosenberg.imagedemo.da.ImageRepository
 import io.johannrosenberg.imagedemo.models.Image
 import io.johannrosenberg.imagedemo.ui.main.ImageViewModel
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class ImageViewModelTest {
 
+  private val testDispatcher = StandardTestDispatcher()
   private lateinit var viewModel: ImageViewModel
   private lateinit var mockRepository: MockImageRepository
 
+  @OptIn(ExperimentalCoroutinesApi::class)
   @BeforeEach
   fun setup() {
+    Dispatchers.setMain(testDispatcher)
     mockRepository = MockImageRepository()
     viewModel = ImageViewModel(mockRepository)
   }
@@ -32,15 +41,21 @@ class ImageViewModelTest {
     assertNotNull(viewModel.images)
   }
 
+
+  @OptIn(ExperimentalCoroutinesApi::class)
   @Test
-  fun `viewModel calls repository for paged images`() {
-    // In a real scenario, you'd observe the flow and assert its emissions
-    // Here, we just check that the repository method was called
-    runBlocking {
-      viewModel.images.collect {}  // Collect the flow to trigger its creation
+  fun `viewModel calls repository for paged images`() = runTest(testDispatcher) {
+    val imagesFlow = viewModel.images
+    val job = launch {
+      imagesFlow.collect {} // Starts collection
     }
+
+    advanceUntilIdle() // Allows dispatcher to process queued coroutines
+
     assert(mockRepository.getPagedImagesCalled)
+    job.cancel() // Cleanup
   }
+
 
   //Mock Classes
   class MockImageRepository : ImageRepository(MockImagePagingSourceFactory()) {

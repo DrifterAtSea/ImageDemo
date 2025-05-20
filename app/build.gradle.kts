@@ -66,6 +66,9 @@ tasks.withType<Test> {
   useJUnitPlatform()
 }
 
+tasks.withType<Test>().configureEach {
+  systemProperty("ksp.skipTests", "true")
+}
 
 dependencies {
 
